@@ -1,0 +1,38 @@
+stages:
+    - format
+    - build
+    - test
+
+format:
+    stage: format
+    image: starlabio/ubuntu-native-build:1.0.12
+    script:
+        - cargo fmt -- --write-mode=diff
+
+build:
+    stage: build
+    image: starlabio/ubuntu-native-build:1.0.12
+    dependencies: []
+    script:
+        - cargo build --verbose
+        - cargo test --verbose
+    artifacts:
+        expire_in: 1 week
+        paths:
+            - target/debug/examples/
+
+test:
+    stage: test
+    image: starlabio/tpm-emulators:2.0
+    before_script:
+        - tpmd
+        - sleep 3
+        - tcsd -e
+    script:
+        - ./target/debug/examples/enable
+        - ./target/debug/examples/active
+        - ./target/debug/examples/ownership
+        - ./target/debug/examples/nvdefine
+        - ./target/debug/examples/nvinfo
+        - ./target/debug/examples/nvwrite
+        - ./target/debug/examples/nvrelease
