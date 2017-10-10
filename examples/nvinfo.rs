@@ -33,7 +33,7 @@ fn run() -> Result<()> {
     tpm.set_secret(Secret::Key(b"owner-auth"))?;
 
     // load the NVRAM index we are interested in
-    let nv_data = NvRamArea::get(&ctx, 0x50000001)?;
+    let nv_data = NvRamArea::get(&ctx, 0x00100001)?;
 
     show_nv_area(&nv_data);
 

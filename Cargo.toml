@@ -1,15 +1,19 @@
 [package]
 name = "tss-tspi"
-version = "0.0.1"
+version = "0.0.1-pre"
 authors = ["Doug Goldstein <doug@starlab.io>"]
 license = "MIT/Apache-2.0"
 description = "Bindings to the TPM 1.2 TSS TSPI"
 repository = "https://gitlab.com/starlab-io/tss-tspi.git"
 homepage = "https://gitlab.com/starlab-io/tss-tspi"
 documentation = "https://docs.rs/tss-tspi"
+readme = "README.md"
 keywords = ["tpm", "tss", "tspi"]
 build = "build.rs"
 links = "tspi"
+
+[badges]
+gitlab = { repository = "starlab-io/tss-tspi" }
 
 [dependencies]
 bitflags = "0.9"

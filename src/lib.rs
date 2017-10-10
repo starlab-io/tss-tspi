@@ -335,7 +335,8 @@ impl<'ctx> NvRamArea<'ctx> {
     /// write data to a specific NVRAM area
     pub fn write(&self, offset: usize, data: &[u8]) -> Result<()> {
         ensure!((offset + data.len()) as u32 <= self.size,
-                ErrorKind::BadSize(format!("offset {} + write size {} greater than NVRAM area size {}",
+                ErrorKind::BadSize(format!("offset {} + write size {} greater than \
+                                           NVRAM area size {}",
                                            offset,
                                            data.len(),
                                            self.size)));
@@ -443,9 +444,7 @@ impl Tpm {
                 variable = index;
                 (sys::TSS_TPMCAP_NV_INDEX, &mut variable as *mut u32 as *mut u8)
             }
-            TpmCap::Owner => {
-                (sys::TSS_TPMCAP_PROPERTY, &mut variable as *mut u32 as *mut u8)
-            }
+            TpmCap::Owner => (sys::TSS_TPMCAP_PROPERTY, &mut variable as *mut u32 as *mut u8),
         };
 
         let mut result_len = 0;
